@@ -6,7 +6,7 @@ theme: "hugo-tania"
 params:
   titleEmoji: '😎'
   socialOptions:
-    github: 
+    github:
     twitter: 
 
 menu:
