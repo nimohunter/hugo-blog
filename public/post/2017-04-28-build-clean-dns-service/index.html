@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title> build clean DNS service | nimodai-blog</title>
+    
+    
+    
+    <link rel="stylesheet" href="/sass/main.min.f68597611a2c172c3abc52a98561f79d3556a8efbe1cee352fd0784b21bbd5ac.css">
+</head>
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="/">
+                    
+                    <span class="emoji">
+                        😎
+                    </span>
+                    
+                    nimodai-blog
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="/articles/">Articles</a>
+                
+                <button id="dark-mode-button"></button>
+            </div>
+            </div>
+    </div>
+</nav>
+        <main>
+            
+
+<div class="container">
+    <article>
+        <header class="article-header">
+            <div class="thumb">
+                <div>
+                    <h1>build clean DNS service</h1>
+                    <div class="post-meta">
+                        <div>
+                            By nimodai on <time>April 28, 2017</time>
+                        </div>
+                        <div class="tags">
+                            
+                            <a href="/tags/dns/">DNS</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </article>
+
+    <div class="article-post">
+    <p>As we know, every visit to google.com, the browser have to ask DNS server to get DNS infomation about google.com, but for some well-known reason, especially in China mainland, you will get a fake infomation. More seriouly, the ISP(Internet Service Provider)such as China Unicom or China Mobie, dirty the DNS, release ad in DNS infomarion.</p>
+<p>So, we need a clean DNS service. unfortunately, the Google Public DNS : 8.8.8.8 , it&rsquo;s performance in China mainaland is unstable, but we have another method.</p>
+<p><a href="https://developers.google.com/speed/public-dns/docs/dns-over-https">DNS-over-HTTPS</a> Which can use Https get DNS information.</p>
+<p>Next, use the docker to configure it.</p>
+<hr>
+<h3 id="1-pdnsd">1. Pdnsd</h3>
+<p>We need this tools to cache DNS info,  docker image: <a href="https://hub.docker.com/r/vimagick/pdnsd/">vimagick/pdnsd</a></p>
+<p>useage:</p>
+<pre><code>docker run --name mypdnsd -p 53:53/tcp -p 53:53/udp -d vimagick/pdnsd
+</code></pre><p>then, docker-enter this, and edit <code>/etc/pdnsd.conf</code></p>
+<pre><code>global {
+        perm_cache=2048;
+        cache_dir=&quot;/var/cache/pdnsd&quot;;
+        run_as=&quot;pdnsd&quot;;
+        server_ip = any;
+        status_ctl = on;
+#       paranoid=on;       # This option reduces the chance of cache poisoning
+                           # but may make pdnsd less efficient, unfortunately.
+        min_ttl=15m;       # Retain cached entries at least 15 minutes.
+        max_ttl=1w;        # One week.
+        timeout=10;        # Global timeout option (10 seconds).
+        neg_domain_pol=on;
+        query_method=tcp_only;
+
+}
+
+server {
+        label = &quot;prcdns&quot;;
+        ip = 23.106.151.177;
+        timeout = 10;
+        port = 3535;
+}
+
+</code></pre><p>focus on <code>server {}</code> which is the transform,</p>
+<p>in general, you can use this:</p>
+<pre><code>server {
+	label = &quot;114dns&quot;; 
+	ip = 114.114.114.114,114.114.115.115;
+	timeout = 10;
+	port = 53; 
+}
+</code></pre><p>but in our method, we have to build a DNS server.
+ps. <code>23.106.151.177</code> is a test service.</p>
+<h3 id="2-use-dns-over-https">2. Use DNS-over-HTTPS.</h3>
+<p>docker image: <a href="https://github.com/lbp0200/PRCDNS">lbp0200/PRCDNS</a></p>
+<p>docker-enter this, see /run.sh</p>
+<pre><code>PRCDNS -l $HOST -p $PORT -r http_proxy
+</code></pre><p>Because the DNS-over-Https website has been block, so you have to Shadowsocks to Http with polipo.</p>
+<p>that&rsquo;s TODO. Have to configure the shadowsocks and polipo, then use this.</p>
+
+    </div>
+</div>
+
+<div class="container">
+    
+    <nav class="flex container suggested">
+        
+        <a rel="prev" href="/post/2017-04-14-unity-java-protobuf-3.0/" title="Previous post (older)">
+            <span>Previous</span>
+            Unity3d Java Protobuf
+            </a>
+        
+        
+        
+        <a rel="next" href="/post/2017-06-01-camera-calibration-use-charucoboard/" title="Next post (newer)">
+            <span>Next</span>
+            Camera-Calibration-Use-ChArucoBoard
+            </a> 
+        
+    </nav>
+    
+</div>
+</main>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="/index.xml">RSS</a>
+            
+        </nav>
+    </section>
+    
+    <script async src="/js/features.min.a94f58a30ad2560de728e080d87f75c60cf806fd1b3d5f4815f1a1a02c0d1859.js"></script>
+</footer>
+    </body>
+</html>
