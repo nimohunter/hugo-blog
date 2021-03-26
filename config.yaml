@@ -16,6 +16,8 @@ menu:
   footer:
     - name: RSS
       url: "/index.xml"
+    - name: 京ICP备16001475号-2
+      url: "http://beian.miit.gov.cn"
 
 markup:
   highlight:
