@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="theme-color" content="dark">
+    <title> Real-time-pose-estimation-with-aruco | nimodai-blog</title>
+    
+    
+    
+    <link rel="stylesheet" href="/sass/main.min.f68597611a2c172c3abc52a98561f79d3556a8efbe1cee352fd0784b21bbd5ac.css">
+</head>
+
+    <body class="dark">
+        <nav class="navbar">
+    <div class="container">
+        <div class="flex">
+            <div>
+                <a class="brand" href="/">
+                    
+                    <span class="emoji">
+                        😎
+                    </span>
+                    
+                    nimodai-blog
+                    </a>
+            </div>
+            <div class="flex">
+                
+                <a href="/articles/">Articles</a>
+                
+                <button id="dark-mode-button"></button>
+            </div>
+            </div>
+    </div>
+</nav>
+        <main>
+            
+
+<div class="container">
+    <article>
+        <header class="article-header">
+            <div class="thumb">
+                <div>
+                    <h1>Real-time-pose-estimation-with-aruco</h1>
+                    <div class="post-meta">
+                        <div>
+                            By nimodai on <time>June 06, 2017</time>
+                        </div>
+                        <div class="tags">
+                            
+                            <a href="/tags/opencv/">OpenCV</a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </article>
+
+    <div class="article-post">
+    <blockquote>
+<p>Project in  <a href="https://github.com/nimohunter/Real_Time_pose_estimation_with_aruco">github</a></p>
+</blockquote>
+<p>This projects base on <a href="http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html">Real Time pose estimation of a textured object</a> and here is <a href="https://github.com/opencv/opencv/tree/master/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation">Code</a></p>
+<p>if you cannot run this offical code, maybe you can use this, <a href="https://github.com/nimohunter/Opencv_Aruco/tree/master/Project_Real_Time_pose_estimation_of_a_textured_object">My base Real time estimate prject</a>, which just modify a little to make the offical code can build and run successful. (maybe the offical code is old and cannot run&hellip;)</p>
+<p>Request:</p>
+<ol>
+<li>Opencv3 with opencv_contrib(this extra-package include aruco)</li>
+<li>Qt Creator</li>
+</ol>
+<hr>
+<p>As the name - &ldquo;Real time pose estimation with aruco&rdquo;, I use the Opecv3 method <code>SovlvePnp</code> to Solve this problem, you can see the final result at <a href="https://youtube_address">TODO</a></p>
+<p>&ldquo;With Aruco&rdquo; meanings abandon the function that use ORB to get image keypoint, i don&rsquo;t think the ORB method is unable to find out keypoints, the fatal reason that i abandon ORB method is the time cost. ORB method maybe cost time twice as fast as Aruco. but you can see ORB can get more keypoints, this is the contradiction.</p>
+<h2 id="component">Component</h2>
+<ul>
+<li>RealTimePoseEstimation_WithAurcoDetect    -&gt; Main Qt Project</li>
+<li>RealTimePoseEstimation_WithAurcoDetect_Data   -&gt; Data Use</li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>Before read, recommand you read the Opencv3 offical project <a href="http://docs.opencv.org/3.1.0/dc/d2c/tutorial_real_time_pose.html">Real Time pose estimation of a textured object</a> and here is <a href="https://github.com/opencv/opencv/tree/master/samples/cpp/tutorial_code/calib3d/real_time_pose_estimation">Code</a></p>
+<h3 id="registration--main_registrationcpp">registration ( <code>main_registration.cpp</code>)</h3>
+<p>the offical idea is build a connection between ORB keypoint and it&rsquo;s 3d Postion in world coordinate. Use this connection, the video frame can use ORB detect to get keypoint, thus obtained it&rsquo;s <strong>3d Postion in world coordinate</strong>, with the <strong>2d position in Camera coordinate</strong>, finally use <code>SolvePnP</code> method to get the object position estimate.</p>
+<p>we replace the ORB keypoint with The four vertices of the Aruco matrix. Use Aurco detect can get the Aruco maker very quickly, so how can we get the connections between vertices of aruco matrix with its' 3d point in world coordinate?</p>
+<p>The offcial code give us a solution to deal with it. At the begining of registration, we need the user to point the 8 vertices of this Cube, so we can get the <strong>vertices 2d position in camera coordinate</strong>, and we fill the <strong>vertices 3d Postion in world coordinate</strong> in <code>box.ply</code>. So, we can use these data to caculate the cube&rsquo;s position and rotaion with <code>SolvePnp</code>. Thus we can use the result to project four vertices of the Aruco matrix which is <strong>2d position in camera coordinate</strong> to <strong>3d Postion in world coordinate</strong> (<code>pnp_registration.backproject2DPoint(&amp;mesh, point2d, point3d)</code>), so i get the connections, save it to <code>cookies_ORB.yml</code></p>
+<h3 id="merge-the-regist-file-main_mergecpp">merge the regist file (<code>main_merge.cpp</code>)</h3>
+<p>Update at 2017.06.07
+As you know, regist from one picture is not enough, because <strong>Aruco cannot detect all marker in this cube</strong>, we have to combine the regist result from multi-picture.</p>
+<p>In this project, I regist 5 pictures manually, get 5 regist yml file. <code>cookies_Aruco_registrate_1.yml</code>, <code>cookies_Aruco_registrate_2.yml</code> &hellip; And then use <code>main_merge.cpp</code>. So The vertices of each aruco marker square have multiple measurements, calculate the sum of the distances of each measurement coordinate to the other measured coordinates, then deleting the measurement coordinates with too much deviation.</p>
+<p>finally get the average aruco matrix&rsquo;s <strong>3d point in world coordinate</strong>.</p>
+<h3 id="detection-in-video-main_detectioncpp">detection in video (<code>main_detection.cpp</code>)</h3>
+<p>continue with above,we have got the connections between vertices of aruco matrix with its' <strong>3d point in world coordinate</strong>.</p>
+<p>next is simple, detect the video per frame, get the four vertices of the Aruco matrix(meanings get the point&rsquo;s <strong>2d position in camera coordinate</strong>), find the map(Store the connection which introduced above), get the <strong>3d Postion in world coordinate</strong>, then, <code>SolvePnp</code> it!</p>
+<p>ps.The stability of this method is heavily dependent on kalman filter, but I donnot know too much about kalman, so I ignored it.</p>
+<h2 id="show-it">Show it</h2>
+<p><img src="https://ws1.sinaimg.cn/mw690/bc1eaf88ly1fgcnhrgep8j20dp08njud.jpg" alt=""></p>
+<p>Here is gif :
+<a href="https://ws1.sinaimg.cn/mw690/bc1eaf88ly1fgcnc15zyig20ds08qe8b.gif">gif-address</a></p>
+
+    </div>
+</div>
+
+<div class="container">
+    
+    <nav class="flex container suggested">
+        
+        <a rel="prev" href="/post/2017-06-01-camera-calibration-use-charucoboard/" title="Previous post (older)">
+            <span>Previous</span>
+            Camera-Calibration-Use-ChArucoBoard
+            </a>
+        
+        
+        
+        <a rel="next" href="/post/2018-06-01-talk-about-violate-and-cas/" title="Next post (newer)">
+            <span>Next</span>
+            Talk-about-Violate-and-CAS
+            </a> 
+        
+    </nav>
+    
+</div>
+</main>
+
+
+        </main>
+        <footer class="footer flex">
+    <section class="container">
+        <nav class="footer-links">
+            
+            <a href="/index.xml">RSS</a>
+            
+            <a href="http://beian.miit.gov.cn">京ICP备16001475号-2</a>
+            
+        </nav>
+    </section>
+    
+    <script async src="/js/features.min.a94f58a30ad2560de728e080d87f75c60cf806fd1b3d5f4815f1a1a02c0d1859.js"></script>
+</footer>
+    </body>
+</html>

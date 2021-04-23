@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OpenCV on nimodai-blog</title>
+    <link>https://nimodai.xyz/tags/opencv/</link>
+    <description>Recent content in OpenCV on nimodai-blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 06 Jun 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://nimodai.xyz/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Real-time-pose-estimation-with-aruco</title>
+      <link>https://nimodai.xyz/post/2017-06-06-real-time-pose-estimation-with-aruco/</link>
+      <pubDate>Tue, 06 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nimodai.xyz/post/2017-06-06-real-time-pose-estimation-with-aruco/</guid>
+      <description>Project in github
+ This projects base on Real Time pose estimation of a textured object and here is Code
+if you cannot run this offical code, maybe you can use this, My base Real time estimate prject, which just modify a little to make the offical code can build and run successful. (maybe the offical code is old and cannot run&amp;hellip;)
+Request:
+ Opencv3 with opencv_contrib(this extra-package include aruco) Qt Creator   As the name - &amp;ldquo;Real time pose estimation with aruco&amp;rdquo;, I use the Opecv3 method SovlvePnp to Solve this problem, you can see the final result at TODO</description>
+    </item>
+    
+    <item>
+      <title>Camera-Calibration-Use-ChArucoBoard</title>
+      <link>https://nimodai.xyz/post/2017-06-01-camera-calibration-use-charucoboard/</link>
+      <pubDate>Thu, 01 Jun 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nimodai.xyz/post/2017-06-01-camera-calibration-use-charucoboard/</guid>
+      <description>The camera, which last use, imaging effect is not very good. So bought a new one, Which support 720p video with 30FPS and more, use this opportunity, talk about use chArucoBoard to calibrate the camera.
+References:
+ Calibration with ArUco and ChArUco
+ 1. Generate ChArucoBoard From the reference, can get Source code from here
+Because with Qt, the Qt Pro file is:
+QT += core QT -= gui CONFIG += c++11 TARGET = new_camera_Calibration CONFIG += console CONFIG -= app_bundle INCLUDEPATH += .</description>
+    </item>
+    
+    <item>
+      <title>SolvePnP in 5 Methods</title>
+      <link>https://nimodai.xyz/post/2017-03-21-solvepnp-5-methods-in-opencv3/</link>
+      <pubDate>Tue, 21 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nimodai.xyz/post/2017-03-21-solvepnp-5-methods-in-opencv3/</guid>
+      <description>Before Begin SolvePnP , Finds an object pose from 3D-2D point correspondences., which is the method that rebuild 3D position from 2D picture.
+We DO NOT Care about the how to use SolvePnP, we try to understand the inner meaning of SolvePnP, and the 5 methods.
+SolvePnP Methods and Paper table:    SolvePnP Methods Reference Paper year      SOLVEPNP_ITERATIVE Original based on Levenberg-Marquardt optimization     SOLVEPNP_EPNP EPnP: Efficient Perspective-n-Point Camera Pose Estimation 2008    SOLVEPNP_P3P Complete Solution Classification for the Perspective-Three-Point Problem 2003    SOLVEPNP_DLS A Direct Least-Squares (DLS) Method for PnP 2011    SOLVEPNP_UPNP Exhaustive Linearization for Robust Camera Pose and Focal Length Estimation 2013     Methods for solving a PnP problem:</description>
+    </item>
+    
+    <item>
+      <title>Install OpenCv3 in Debain</title>
+      <link>https://nimodai.xyz/post/2017-02-28-install-opencv3-qt-in-debian/</link>
+      <pubDate>Tue, 28 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nimodai.xyz/post/2017-02-28-install-opencv3-qt-in-debian/</guid>
+      <description>About Opencv, this is a wonderful CV library. But for some reason, the installation isn&amp;rsquo;t kindful for begenner.I try to use Visual Studio, but lots of Opencv DLL files makes me crazy. So I choose Debian platform, and Qt, which i feel more comfortable.
+1. Prepare We should install some dependencies.
+Ubuntu/Debian: ubuntu sudo apt-get install qt5-default apt-get install libgtk2.0-dev apt-get install pkg-config references: first-example-code-error
+CentOS yum install cmake gcc gcc-c++ gtk+-devel gimp-devel gimp-devel-tools gimp-help-browser \ zlib-devel libtiff-devel libjpeg-devel libpng-devel gstreamer-devel \ libavc1394-devel libraw1394-devel libdc1394-devel \ jasper-devel jasper-utils swig python libtool nasm if you don not install these dependecies, maybe you will see this error:</description>
+    </item>
+    
+  </channel>
+</rss>

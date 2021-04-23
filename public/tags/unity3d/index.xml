@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Unity3d on nimodai-blog</title>
+    <link>https://nimodai.xyz/tags/unity3d/</link>
+    <description>Recent content in Unity3d on nimodai-blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 14 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://nimodai.xyz/tags/unity3d/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unity3d Java Protobuf</title>
+      <link>https://nimodai.xyz/post/2017-04-14-unity-java-protobuf-3.0/</link>
+      <pubDate>Fri, 14 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://nimodai.xyz/post/2017-04-14-unity-java-protobuf-3.0/</guid>
+      <description>Referece  protobuf_for_unity Google Protobuf   Unity Thanks for GongFaxin, You can download his Code protobuf_for_unity, and Run in Unity 5.3, you can see a lot of Protobuf source code.
+Protobuf Download the tools in Protocol Buffers v3.0.0 Download link
+Then, follow the Google Tutorial.
+protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/addressbook.proto protoc -I=$SRC_DIR --csharp_out=$DST_DIR $SRC_DIR/addressbook.proto Then you can get the Java code or C# code.
+Java you will need the Jar: protobuf-java-3.</description>
+    </item>
+    
+  </channel>
+</rss>

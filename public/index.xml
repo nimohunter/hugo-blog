@@ -1,0 +1,35 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nimodai-blog</title>
+    <link>https://nimodai.xyz/</link>
+    <description>Recent content on nimodai-blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 30 Mar 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://nimodai.xyz/" rel="self" type="application/rss+xml" />
+
+    
+      <item>
+        <title>Posts</title>
+        <link>https://nimodai.xyz/post/</link>
+        <pubDate>Tue, 30 Mar 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://nimodai.xyz/post/</guid>
+        <description>
+          
+        </description>
+      </item>
+    
+      <item>
+        <title>Articles</title>
+        <link>https://nimodai.xyz/articles/</link>
+        <pubDate>Thu, 26 Nov 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://nimodai.xyz/articles/</guid>
+        <description>
+          
+        </description>
+      </item>
+    
+  </channel>
+</rss>
